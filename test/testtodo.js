@@ -17,7 +17,7 @@ describe('To-do List Automation', function () {
       }
     }
   });
-  it('IT SHOULD LOGIN', async function () {
+  it('IT SHOULD LOGIN BY EMAIL AND PASSWORD', async function () {
     this.timeout(20000);
     await driver.get('https://ahmed-todo.netlify.app/login.html');
     await driver.findElement(By.css('#loginEmail')).sendKeys('ahmed829b@gmail.com');
