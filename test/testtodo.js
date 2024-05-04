@@ -5,8 +5,7 @@ describe('To-do List Automation', function () {
   let driver;
 
   before(async function () {
-    const options = new chrome.Options().headless();
-    driver = await new Builder().forBrowser('chrome').setChromeOptions(options).build();
+    driver = await new Builder().forBrowser('chrome').build();
   });
 
   after(async function () {
@@ -17,7 +16,7 @@ describe('To-do List Automation', function () {
         console.error('Error quitting WebDriver:', e);
       }
     }
-  });
+  });;
   it('IT SHOULD LOGIN BY EMAIL AND PASSWORD', async function () {
     this.timeout(20000);
     await driver.get('https://ahmed-todo.netlify.app/login.html');
@@ -57,23 +56,3 @@ describe('To-do List Automation', function () {
     await driver.findElement(By.css('#logout-btn')).click();
   });
 });
-
-// const { Builder, By, until } = require('selenium-webdriver');
-// const chrome = require('selenium-webdriver/chrome');
-
-// describe('To-do List Automation', function () {
-//   let driver;
-
-//   before(async function () {
-//     driver = await new Builder().forBrowser('chrome').build();
-//   });
-
-//   after(async function () {
-//     if (driver) {
-//       try {
-//         await driver.quit();
-//       } catch (e) {
-//         console.error('Error quitting WebDriver:', e);
-//       }
-//     }
-//   });;
