@@ -3,11 +3,11 @@ name: CI
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -16,6 +16,16 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '14'
+
+      - name: Download and install Chrome
+        run: |
+          Invoke-WebRequest -Uri 'https://dl.google.com/chrome/install/GoogleChromeStandaloneEnterprise64.msi' -OutFile 'chrome_installer.msi' -UseBasicParsing
+          Start-Process msiexec.exe -Wait -ArgumentList '/I chrome_installer.msi /quiet /qn /norestart'
+
+      - name: Download and install ChromeDriver
+        run: |
+          Invoke-WebRequest -Uri 'https://chromedriver.storage.googleapis.com/124.0.6367.134/chromedriver_win32.zip' -OutFile 'chromedriver_win32.zip' -UseBasicParsing
+          Expand-Archive -Path 'chromedriver_win32.zip' -DestinationPath .
 
       - name: Install dependencies
         run: npm install
@@ -28,6 +38,7 @@ jobs:
         with:
           name: test-results
           path: mochawesome-report
+
 
 
 # name: CI
